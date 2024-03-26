@@ -1,9 +1,12 @@
+import SearchBar from '@/components/search-bar';
+import SearchPanel from '@/components/search-panel';
+import getMarketDataBySymbol from '@/utils/getMarketDataBySymbol';
 import React from 'react'
 
-export default function Page() {
+export default async function Page() { 
   return (
-    <div>
-      Page
+    <div className='p-4'>
+      <SearchPanel/>
     </div>
   )
 }
