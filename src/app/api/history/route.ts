@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     body: JSON.stringify({
       "currency": "USD",
       "code": symbol,
-      "start": 1711434345094,
+      "start": 1709015907000,
       "end": Date.now()
     }),
   });

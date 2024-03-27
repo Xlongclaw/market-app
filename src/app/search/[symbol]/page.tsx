@@ -7,41 +7,29 @@ import ChangeBox from "./change-box";
 import { BiInfoCircle, BiLink } from "react-icons/bi";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import AlgoTestingPanel from "./algo-testing-panel";
 
 export default function Page({ params }: { params: { symbol: string } }) {
-  // const data = await getMarketDataBySymbol(params.symbol)
   const [loading, setLoading] = React.useState(true);
   const [marketData, setMarketData] = React.useState<any>(null);
-  const [symbolHistory, setSymbolHistory] = React.useState<Array<any>>();
 
   React.useEffect(() => {
     const interval = setInterval(() => {
       getMarketDataBySymbol(params.symbol).then((data) => {
         setMarketData(data);
-        console.log(data.rate);
         setLoading(false);
       });
     }, 2000);
-
     return () => {
       clearInterval(interval);
     };
   }, [marketData]);
 
-  React.useEffect(() => {
-    fetch(`http://localhost:3000/api/history?symbol=${params.symbol}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSymbolHistory(data.history);
-      });
-  }, []);
-
-  // const marketData = await getMarketDataBySymbol(params.symbol);
   if (!loading)
     return (
       <div>
         <NavigationBar />
-        <div className="borde border-zinc-900 bg-neutral-9 p-8 mx-32 my-4">
+        <div className="borde border-zinc-900 bg-neutral-9 p-0 mx-32 my-4">
           <div className="flex  justify-between">
             <div>
               <div className="flex items-center gap-4">
@@ -117,16 +105,7 @@ export default function Page({ params }: { params: { symbol: string } }) {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 mx-32 ">
-          {symbolHistory && (
-            <div className="flex flex-wrap gap-5">
-              {symbolHistory.map((data) => (
-              
-              <div className=" bg-zinc-900 p-2 w-32">{data.rate.toFixed(3)} {new Date(data.date).toString()}</div>
-              ))}
-            </div>
-          )}
-        </div>
+        <AlgoTestingPanel symbol={params.symbol} />
       </div>
     );
   return <>LOADING</>;
