@@ -12,6 +12,7 @@ export default function Page({ params }: { params: { symbol: string } }) {
   // const data = await getMarketDataBySymbol(params.symbol)
   const [loading, setLoading] = React.useState(true);
   const [marketData, setMarketData] = React.useState<any>(null);
+  const [symbolHistory, setSymbolHistory] = React.useState<Array<any>>();
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -21,10 +22,19 @@ export default function Page({ params }: { params: { symbol: string } }) {
         setLoading(false);
       });
     }, 2000);
+
     return () => {
       clearInterval(interval);
     };
   }, [marketData]);
+
+  React.useEffect(() => {
+    fetch(`http://localhost:3000/api/history?symbol=${params.symbol}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSymbolHistory(data.history);
+      });
+  }, []);
 
   // const marketData = await getMarketDataBySymbol(params.symbol);
   if (!loading)
@@ -66,7 +76,8 @@ export default function Page({ params }: { params: { symbol: string } }) {
             </Link>
             <Link
               href={marketData.links.website}
-              className="flex items-center gap-2 text-yellow-500 p-4 bg-zinc-900"
+              style={{ color: marketData.color }}
+              className="flex items-center gap-2 p-4 bg-zinc-900"
             >
               <BiLink /> Official Site
             </Link>
@@ -105,6 +116,16 @@ export default function Page({ params }: { params: { symbol: string } }) {
               </h3>
             </div>
           </div>
+        </div>
+        <div className="flex gap-4 mx-32 ">
+          {symbolHistory && (
+            <div className="flex flex-wrap gap-5">
+              {symbolHistory.map((data) => (
+              
+              <div className=" bg-zinc-900 p-2 w-32">{data.rate.toFixed(3)} {new Date(data.date).toString()}</div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );
