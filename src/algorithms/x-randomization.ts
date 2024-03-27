@@ -4,12 +4,14 @@ const XRandomisation = ({
   lever,
   tpRate,
   slRate,
+  rpt
 }: {
   capital: number;
   symbolHistory: Array<any>;
   lever: number;
   tpRate: number;
   slRate: number;
+  rpt:number
 }) => {
 
   const tableData: Array<ITableData> = [];
@@ -53,7 +55,7 @@ const XRandomisation = ({
           cptl = cptl - loss;
           trade = false;
           console.log(`LOSS : ${loss}`);
-        tableData.push({action: "SELL" , change: loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "SELL" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
         } else {
           console.log(`PASS`);
         tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING"})
@@ -70,7 +72,7 @@ const XRandomisation = ({
           cptl = cptl - loss;
           trade = false;
           console.log(`LOSS : ${loss}`);
-        tableData.push({action: "BUY" , change: loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "BUY" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
         } else {
           tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING"})
           console.log(`PASS`);

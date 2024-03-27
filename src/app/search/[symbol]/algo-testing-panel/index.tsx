@@ -24,8 +24,9 @@ export default function AlgoTestingPanel({ symbol }: { symbol: string }) {
       capital: remainingCapital,
       symbolHistory: symbolHistory!,
       lever: 1,
-      slRate: 3,
-      tpRate: 2,
+      slRate: 2,
+      tpRate: 4,
+      rpt:1
     });
     setRemainingCapital(cptl);
     setTableData(tableData)
