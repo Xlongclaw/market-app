@@ -16,10 +16,12 @@ export default function Page({ params }: { params: { symbol: string } }) {
   React.useEffect(() => {
     const interval = setInterval(() => {
       getMarketDataBySymbol(params.symbol).then((data) => {
+        console.log("symbol-fetch");
+        
         setMarketData(data);
         setLoading(false);
       });
-    }, 2000);
+    }, 20000);
     return () => {
       clearInterval(interval);
     };

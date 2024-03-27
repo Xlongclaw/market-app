@@ -1,4 +1,5 @@
 import XRandomisation from "@/algorithms/x-randomization";
+import XTable from "@/components/x-table";
 import React from "react";
 import { BiMoney } from "react-icons/bi";
 import { MdMoney } from "react-icons/md";
@@ -7,23 +8,27 @@ export default function AlgoTestingPanel({ symbol }: { symbol: string }) {
   const [symbolHistory, setSymbolHistory] = React.useState<Array<any>>();
   const [capital, setCapital] = React.useState(100);
   const [remainingCapital, setRemainingCapital] = React.useState(capital);
+  const [tableData,setTableData] = React.useState<Array<ITableData>>([])
 
   React.useEffect(() => {
     fetch(`http://localhost:3000/api/history?symbol=${symbol}`)
       .then((res) => res.json())
       .then((data) => {
         setSymbolHistory(data.history);
+        console.log("algo-testing-panel-fetch");
+        
       });
   }, []);
   const runAlgo1 = () => {
-    const fc = XRandomisation({
+    const { cptl,tableData} = XRandomisation({
       capital: remainingCapital,
       symbolHistory: symbolHistory!,
       lever: 1,
       slRate: 3,
       tpRate: 2,
     });
-    setRemainingCapital(fc);
+    setRemainingCapital(cptl);
+    setTableData(tableData)
   };
   return (
     <div className=" mx-32  border border-zinc-900 p-8">
@@ -40,13 +45,14 @@ export default function AlgoTestingPanel({ symbol }: { symbol: string }) {
               <BiMoney className="text-green-700" />
             </div>
           </div>
-          <div className=" flex gap-4 items-center">
+          <div className="">
             <button
               onClick={runAlgo1}
               className="p-3 bg-green-700 hover:bg-green-600"
             >
               Run XRandamization Algorithm
             </button>
+            <XTable data={tableData}/>
           </div>
           {/* {symbolHistory.map((data) => (
               
