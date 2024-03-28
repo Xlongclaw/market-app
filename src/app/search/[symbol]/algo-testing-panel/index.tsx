@@ -1,9 +1,7 @@
-import XRandomisation from "@/algorithms/x-randomization";
+import XRandomisation from "@/algorithms/xRandomization";
 import XTable from "@/components/x-table";
 import React from "react";
-import DataStatusTag from "./data-status-tag";
 import CapitalContainer from "./capital-container";
-import DateInputField from "./data-loader/date-input-field";
 import XTerminal from "./x-terminal";
 import DataLoader from "./data-loader";
 import AlgoBtn from "./algo-btn";
@@ -14,7 +12,7 @@ export default function AlgoTestingPanel({ symbol }: { symbol: string }) {
   const [remainingCapital, setRemainingCapital] = React.useState(capital);
   const [tableData, setTableData] = React.useState<Array<ITableData>>([]);
 
-  const runAlgo1 = () => {
+  const deployAlgorithm = () => {
     const { cptl, tableData } = XRandomisation({
       capital: remainingCapital,
       symbolHistory: symbolHistory!,
@@ -40,9 +38,11 @@ export default function AlgoTestingPanel({ symbol }: { symbol: string }) {
           symbolHistory={symbolHistory}
         />
         <XTerminal />
-        <AlgoBtn onClick={() => {}} title="Run XRandomization Algorithm" />
-
-        <XTable data={tableData} />
+        <AlgoBtn
+          onClick={deployAlgorithm}
+          title="Run XRandomization Algorithm"
+        />
+        {tableData.length!==0 && <XTable data={tableData} />}
       </div>
     </div>
   );

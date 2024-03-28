@@ -1,4 +1,4 @@
-import XRandomisation from "./x-randomization";
+import XRandomisation from "./xRandomization";
 
 const algorithms = [
   {
