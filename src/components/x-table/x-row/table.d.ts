@@ -6,5 +6,6 @@ interface ITableData {
   quantity:number,
   price:number,
   change:number,
+  unrealizedPnl:number
 }
 

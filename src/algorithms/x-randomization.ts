@@ -33,14 +33,14 @@ const XRandomisation = ({
         direction = "BUY";
         trade = true;
         console.log(`BUY QTY : ${qty} at $${rate}`);
-        tableData.push({action: direction , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"OPENED"})
+        tableData.push({action: direction , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"OPENED",unrealizedPnl:0})
       } else {
         rate = element.rate;
         qty = riskcap / rate;
         direction = "SELL";
         trade = true;
         console.log(`SELL QTY : ${qty} at $${rate}`);
-        tableData.push({action: direction , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"OPENED"})
+        tableData.push({action: direction , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"OPENED",unrealizedPnl:0})
       }
     } else {
       if (direction == "BUY") {
@@ -49,16 +49,17 @@ const XRandomisation = ({
           cptl = cptl + profit;
           trade = false;
           console.log(`PROFIT : ${profit}`);
-        tableData.push({action: "SELL" , change: profit, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "SELL" , change: profit, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED",unrealizedPnl:0})
         } else if (element.rate < rate - (slRate / 100) * rate) {
           let loss = qty * (rate - element.rate);
           cptl = cptl - loss;
           trade = false;
           console.log(`LOSS : ${loss}`);
-        tableData.push({action: "SELL" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "SELL" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED",unrealizedPnl:0})
         } else {
           console.log(`PASS`);
-        tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING"})
+          let unrealizedPnl = (element.rate-rate)*qty
+        tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING",unrealizedPnl})
         } 
       } else {
         if (element.rate < rate - (tpRate / 100) * rate) {
@@ -66,16 +67,17 @@ const XRandomisation = ({
           cptl = cptl + profit;
           trade = false;
           console.log(`PROFIT : ${profit}`);
-        tableData.push({action: "BUY" , change: profit, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "BUY" , change: profit, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED",unrealizedPnl:0})
         } else if (element.rate > rate + (slRate / 100) * rate) {
           let loss = qty * (element.rate - rate);
           cptl = cptl - loss;
           trade = false;
           console.log(`LOSS : ${loss}`);
-        tableData.push({action: "BUY" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED"})
+        tableData.push({action: "BUY" , change: -loss, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"CLOSED",unrealizedPnl:0})
         } else {
-          tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING"})
           console.log(`PASS`);
+          let unrealizedPnl = (rate-element.rate)*qty
+          tableData.push({action: "NA" , change: 0, date:element.date,price:element.rate,quantity:qty, sequence:i+1,tradeStatus:"RUNNING",unrealizedPnl})
         } 
       }
     }

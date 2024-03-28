@@ -5,7 +5,7 @@ import { BiCaretDown, BiCaretUp, BiMoney } from "react-icons/bi";
 
 export default function XRow(props: ITableData&{prevPrice:number}) {
   return (
-    <div className="grid grid-cols-[6%_20%_20%_12%_12%_10%_10%_10%] items-center border border-zinc-900 p-4 text-sm">
+    <div className="grid grid-cols-[6%_15%_15%_12%_12%_10%_10%_10%_10%] items-center border border-zinc-900 p-4 text-sm">
       <h3 className="w-full">{props.sequence}.</h3>
       <h3 className="w-full">{new Date(props.date).toDateString()}</h3>
       <h3 className="w-full">{new Date(props.date).toLocaleTimeString()}</h3>
@@ -49,6 +49,23 @@ export default function XRow(props: ITableData&{prevPrice:number}) {
           </div>
         )}
       </h3>
+      
+      <div className="w-full">
+        
+        {
+          props.unrealizedPnl > 0 && <h3 className="text-green-600 flex items-center gap-2">+{props.unrealizedPnl.toFixed(4)} $</h3>
+        }
+        {
+          props.unrealizedPnl < 0 && <h3 className="text-red-600 flex items-center gap-2">{props.unrealizedPnl.toFixed(4)} $</h3>
+        }
+        {
+          props.unrealizedPnl === 0 && <h3 className="text-white flex items-center gap-2">{props.unrealizedPnl.toFixed(4)} $</h3>
+        }
+        
+        
+        </div>
+
+
     </div>
   );
 }
