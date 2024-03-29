@@ -5,7 +5,8 @@ import CapitalContainer from "./capital-container";
 import XTerminal from "./x-terminal";
 import DataLoader from "./data-loader";
 import AlgoBtn from "./algo-btn";
-import { CoinSymbolContext } from "../providers/coin-symbol-provider";
+import { CoinSymbolContext } from "../../providers/coin-symbol-provider";
+
 
 export default function AlgoTestingPanel() {
   const [symbolHistory, setSymbolHistory] = React.useState<Array<any>>();
@@ -13,7 +14,7 @@ export default function AlgoTestingPanel() {
   const [remainingCapital, setRemainingCapital] = React.useState(capital);
   const [tableData, setTableData] = React.useState<Array<ITableData>>([]);
 
-  const symbolData = React.useContext(CoinSymbolContext);
+  const symbol = React.useContext(CoinSymbolContext);
 
   const deployAlgorithm = () => {
     const { cptl, tableData } = XRandomisation({
@@ -37,7 +38,7 @@ export default function AlgoTestingPanel() {
         />
         <DataLoader
           onChange={(data) => setSymbolHistory(data)}
-          symbol={symbolData.symbol}
+          symbol={symbol.value}
           symbolHistory={symbolHistory}
         />
         <XTerminal />

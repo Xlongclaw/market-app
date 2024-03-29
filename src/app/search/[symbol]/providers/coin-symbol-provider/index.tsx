@@ -7,16 +7,16 @@ interface IProps {
 }
 
 export interface ICoinSymbolContext {
-  symbol: string;
+  value: string;
 }
 
 export const CoinSymbolContext = React.createContext<ICoinSymbolContext>({
-  symbol: "",
+  value: "",
 });
 
 export default function CoinSymbolProvider({ children, symbol }: IProps) {
   return (
-    <CoinSymbolContext.Provider value={{ symbol }}>
+    <CoinSymbolContext.Provider value={{ value:symbol }}>
       {children}
     </CoinSymbolContext.Provider>
   );
