@@ -4,6 +4,8 @@ import AlgoTestingPanel from "./components/algo-testing-panel";
 import CoinDetails from "./components/coin-details";
 import CoinCurrentDataProvider from "./providers/coin-current-data-provider";
 import CoinSymbolProvider from "./providers/coin-symbol-provider";
+import TableProvider from "./providers/table-provider";
+import CapitalProvider from "./providers/capital-provider";
 
 export default function Page({ params }: { params: { symbol: string } }) {
   return (
@@ -11,7 +13,11 @@ export default function Page({ params }: { params: { symbol: string } }) {
       <CoinCurrentDataProvider symbol={params.symbol}>
         <>
           <CoinDetails />
-          <AlgoTestingPanel />
+          <CapitalProvider>
+            <TableProvider>
+              <AlgoTestingPanel />
+            </TableProvider>
+          </CapitalProvider>
         </>
       </CoinCurrentDataProvider>
     </CoinSymbolProvider>

@@ -1,12 +1,25 @@
 import React from "react";
+import getCommandParameters from "./functions/getCommandParameters";
+import deployAlgorithm from "./functions/deployAlgorithm";
+import searchAlgorithm from "./functions/searchAlgorithm";
+import { TableContext } from "../../../providers/table-provider";
+import { CapitalContext } from "../../../providers/capital-provider";
 
-export default function XTerminal() {
+interface IProps {
+  coinHistory:Array<any>
+}
+
+
+export default function XTerminal({coinHistory}:IProps) {
   const [terminalInput, setTerminalInput] = React.useState("");
   const [terminalFocus, setTerminalFocus] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const consoleAreaRef = React.useRef<HTMLDivElement>(null);
-  const [inputLogs, setInputLogs] = React.useState<Array<string>>([""]);
+  const [inputLogs, setInputLogs] = React.useState<Array<string>>(["", ""]);
   const [inputLogIndex, setInputLogIndex] = React.useState<number>(0);
+
+  const tradesData = React.useContext(TableContext);
+  const capitalData = React.useContext(CapitalContext);
 
   React.useEffect(() => {
     terminalFocus && inputRef.current?.focus;
@@ -26,13 +39,11 @@ export default function XTerminal() {
     consoleAreaRef.current?.appendChild(messageNode);
   };
 
-
-  const ary = ['sl','tp',"lever"]
-
   const handleInput = () => {
-    setInputLogs((inputLogs)=>[...inputLogs, terminalInput]);
+    inputLogs.pop();
+    setInputLogs((inputLogs) => [...inputLogs, terminalInput, ""]);
     const inputKeys = terminalInput.split(" ");
- 
+
     switch (inputKeys[0]) {
       case "clear": {
         consoleAreaRef.current!.innerHTML = "";
@@ -40,22 +51,55 @@ export default function XTerminal() {
       }
       case "deploy": {
         switch (inputKeys[1]) {
-
-          case "xray":
-            for (let index = 2; index < inputKeys.length; index++) {
-              // ary.map((option)=>{
-              //   if(option===inputKeys[index]){
-
-              //   }                
-              // })
-            }
-            displayMessage("xRandomisation Variant Y Deployed");
+          case undefined:
+            displayMessage(`Specify the algorithm name !`);
             break;
           default:
-            if (inputKeys[1] === undefined)
-              displayMessage(`Specify the algorithm name !`);
-            else
-              displayMessage(`No algorithm found with name ${inputKeys[1]} `);
+
+          const algorithm = searchAlgorithm({ command: inputKeys[1] });
+          if(algorithm === undefined){
+            displayMessage(`No algorithm found with name ${inputKeys[1]}`)
+          }
+          else{
+            const commandParameters = getCommandParameters({
+              inputKeys,
+              parameterStartIndex: 2,
+              requiredParameters: algorithm.requiredParameters,
+            });
+  
+            if(Object.keys(commandParameters).length === algorithm.requiredParameters.length){
+              commandParameters.capital = capitalData.remainingCapital
+              commandParameters.symbolHistory = coinHistory
+              const { cptl, tableData } = algorithm.function(commandParameters);
+              capitalData.changeRemainingCapital(cptl);
+              tradesData.changeTableData(tableData);
+              // deployAlgorithm({ algo: "xray", commandParameters });
+              displayMessage(`${algorithm.name} Deployed`);
+            }
+            else {
+              displayMessage("Failed Deploy!");
+              displayMessage("More Arguments Expected.");
+            } 
+          }
+            break;
+        }
+        break;
+      }
+      case "help":{
+        switch (inputKeys[1]) {
+          case undefined:
+            displayMessage("Specify the algorithm name!")
+            break;
+            default:
+              const algorithm = searchAlgorithm({command : inputKeys[1]})
+              if(algorithm){
+                const message = algorithm.requiredParameters.join(", ")
+                displayMessage(`Required Arguments -> ${message}`)
+                displayMessage(`Reference -> ${algorithm.example}`)
+              }
+              else{
+              displayMessage(`Algorithm not found!`)
+            }
             break;
         }
         break;
@@ -71,13 +115,15 @@ export default function XTerminal() {
   const handleKeyUpPress = () => {
     if (inputLogIndex !== 0) {
       setTerminalInput(inputLogs[inputLogIndex]);
-      inputLogIndex!==1 && setInputLogIndex((inputLogIndex)=>inputLogIndex - 1);
+      inputLogIndex !== 1 &&
+        setInputLogIndex((inputLogIndex) => inputLogIndex - 1);
     }
   };
   const handleKeyDownPress = () => {
     if (inputLogIndex < inputLogs.length) {
       setTerminalInput(inputLogs[inputLogIndex]);
-      inputLogIndex!==inputLogs.length-1 &&setInputLogIndex((inputLogIndex)=>inputLogIndex + 1);
+      inputLogIndex !== inputLogs.length - 1 &&
+        setInputLogIndex((inputLogIndex) => inputLogIndex + 1);
     }
   };
 
@@ -92,9 +138,10 @@ export default function XTerminal() {
         <p>$</p>
         <input
           ref={inputRef}
+          spellCheck={false}
           type="text"
           placeholder=""
-          className="bg-transparent focus:outline-none"
+          className="bg-transparent focus:outline-none w-full"
           value={terminalInput}
           onChange={(e) => setTerminalInput(e.target.value)}
           onKeyUp={(e) => {

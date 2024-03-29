@@ -18,7 +18,7 @@ export default function CapitalContainer({
   };
 
   return (
-    <div className="flex justify-between py-2">
+    <div className="flex justify-between px-2">
       <h5 className=" text-xl flex items-center gap-2">
         <span className="text-xs">INITIAL {`->`}</span>
         {capital} <BiMoney className="text-green-700" />

@@ -31,21 +31,25 @@ export default function DataLoader({
   };
 
   return (
-    <div className=" flex gap-2 mt-8">
-      <DateInputField
-        title="START DATE"
-        onChange={(value) => setStartDate(value)}
-      />
-      <DateInputField
-        title="END DATE"
-        onChange={(value) => setEndDate(value)}
-      />
-      <button
-        onClick={fetchSymbolHistory}
-        className="text-[10px] bg-green-700 hover:bg-green-800 p-3 rounded-full"
-      >
-        LOAD DATA
-      </button>
+    <div className=" flex gap-2 mt-8 justify-between">
+      <div className="flex gap-2">
+        <DateInputField
+          title="START DATE"
+          onChange={(value) => setStartDate(value)}
+        />
+        <DateInputField
+          title="END DATE"
+          onChange={(value) => setEndDate(value)}
+        />
+        {!loading && (
+          <button
+            onClick={fetchSymbolHistory}
+            className="text-xs border-2 border-zinc-300 text-zinc-300  font-semibold hover:bg-zinc-300 hover:text-black px-6 rounded-full"
+          >
+            {!symbolHistory ? "Load Data" : "Reload Data"}
+          </button>
+        )}
+      </div>
       <DataStatusTag
         status={
           !loading && !symbolHistory
