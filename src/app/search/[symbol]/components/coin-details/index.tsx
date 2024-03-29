@@ -22,14 +22,14 @@ export default function CoinDetails({}: IProps): JSX.Element {
   // Render if coin data is available
   if (marketData?.coinData) {
     return (
-      <div className="border border-zinc-900 bg-neutral-9 p-0 mx-32 my-4">
+      <div className="p-0 mx-32 my-16">
         <div className="flex justify-between">
           {/* CoinHeroContainer for displaying hero section */}
-          <>
+          <div>
             <CoinHeroContainer />
             {/* CoinPriceContainer for displaying price information */}
             <CoinPriceContainer />
-          </>
+          </div>
           {/* CoinChangeContainer for displaying price change */}
           <CoinChangeContainer />
         </div>
