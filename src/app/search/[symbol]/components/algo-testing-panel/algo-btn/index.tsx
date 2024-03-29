@@ -1,11 +1,20 @@
 import React from "react";
 
+/**
+ * Props interface for the AlgoBtn component.
+ */
 interface IProps {
-  onClick: () => void;
-  title:string
+  onClick: () => void; // Function to be called when the button is clicked.
+  title: string; // The title or text displayed on the button.
 }
 
-export default function AlgoBtn({ title, onClick }: IProps) {
+/**
+ * AlgoBtn component represents a button for algorithm operations.
+ * @param onClick Function to be called when the button is clicked.
+ * @param title The title or text displayed on the button.
+ * @returns JSX element representing the AlgoBtn component.
+ */
+export default function AlgoBtn({ title, onClick }: IProps): JSX.Element {
   return (
     <button
       onClick={onClick}
