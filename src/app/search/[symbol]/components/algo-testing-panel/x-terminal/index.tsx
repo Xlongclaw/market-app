@@ -6,11 +6,10 @@ import { TableContext } from "../../../providers/table-provider";
 import { CapitalContext } from "../../../providers/capital-provider";
 
 interface IProps {
-  coinHistory:Array<any>
+  coinHistory: Array<any>;
 }
 
-
-export default function XTerminal({coinHistory}:IProps) {
+export default function XTerminal({ coinHistory }: IProps) {
   const [terminalInput, setTerminalInput] = React.useState("");
   const [terminalFocus, setTerminalFocus] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -33,8 +32,14 @@ export default function XTerminal({coinHistory}:IProps) {
     console.log(inputLogIndex);
   }, [inputLogIndex]);
 
-  const displayMessage = (message: string) => {
+  const displayMessage = (
+    message: string,
+    type?: "ERROR" | "NORMAL" | "SUCCESS" | "INFO"
+  ) => {
     const messageNode = document.createElement("p");
+    if (type === "ERROR") messageNode.style.color = "#b91c1c";
+    if (type === "SUCCESS") messageNode.style.color = "#15803d";
+    if (type === "INFO") messageNode.style.color = "#a16207";
     messageNode.innerText = message;
     consoleAreaRef.current?.appendChild(messageNode);
   };
@@ -52,60 +57,61 @@ export default function XTerminal({coinHistory}:IProps) {
       case "deploy": {
         switch (inputKeys[1]) {
           case undefined:
-            displayMessage(`Specify the algorithm name !`);
+            displayMessage(`Specify the algorithm name !`,'INFO');
             break;
           default:
+            const algorithm = searchAlgorithm({ command: inputKeys[1] });
+            if (algorithm === undefined) {
+              displayMessage(`No algorithm found with name ${inputKeys[1]}`,'ERROR');
+            } else {
+              const commandParameters = getCommandParameters({
+                inputKeys,
+                parameterStartIndex: 2,
+                requiredParameters: algorithm.requiredParameters,
+              });
 
-          const algorithm = searchAlgorithm({ command: inputKeys[1] });
-          if(algorithm === undefined){
-            displayMessage(`No algorithm found with name ${inputKeys[1]}`)
-          }
-          else{
-            const commandParameters = getCommandParameters({
-              inputKeys,
-              parameterStartIndex: 2,
-              requiredParameters: algorithm.requiredParameters,
-            });
-  
-            if(Object.keys(commandParameters).length === algorithm.requiredParameters.length){
-              commandParameters.capital = capitalData.remainingCapital
-              commandParameters.symbolHistory = coinHistory
-              const { cptl, tableData } = algorithm.function(commandParameters);
-              capitalData.changeRemainingCapital(cptl);
-              tradesData.changeTableData(tableData);
-              // deployAlgorithm({ algo: "xray", commandParameters });
-              displayMessage(`${algorithm.name} Deployed`);
+              if (
+                Object.keys(commandParameters).length ===
+                algorithm.requiredParameters.length
+              ) {
+                commandParameters.capital = capitalData.remainingCapital;
+                commandParameters.symbolHistory = coinHistory;
+                const { cptl, tableData } =
+                  algorithm.function(commandParameters);
+                capitalData.changeRemainingCapital(cptl);
+                tradesData.changeTableData(tableData);
+                // deployAlgorithm({ algo: "xray", commandParameters });
+                displayMessage(`${algorithm.name} Deployed`, 'SUCCESS');
+              } else {
+                displayMessage("Failed Deploy !",'ERROR');
+                displayMessage("More Arguments Expected.");
+              }
             }
-            else {
-              displayMessage("Failed Deploy!");
-              displayMessage("More Arguments Expected.");
-            } 
-          }
             break;
         }
         break;
       }
-      case "help":{
+      case "help": {
         switch (inputKeys[1]) {
           case undefined:
-            displayMessage("Specify the algorithm name!")
+            displayMessage("Specify the algorithm name!");
             break;
-            default:
-              const algorithm = searchAlgorithm({command : inputKeys[1]})
-              if(algorithm){
-                const message = algorithm.requiredParameters.join(", ")
-                displayMessage(`Required Arguments -> ${message}`)
-                displayMessage(`Reference -> ${algorithm.example}`)
-              }
-              else{
-              displayMessage(`Algorithm not found!`)
+          default:
+            const algorithm = searchAlgorithm({ command: inputKeys[1] });
+            if (algorithm) {
+              const message = algorithm.requiredParameters.join(", ");
+              displayMessage(`Required Arguments -> ${message}`);
+              displayMessage(`Reference -> ${algorithm.example}`);
+            } else {
+              displayMessage(`Algorithm not found!`);
             }
             break;
         }
         break;
       }
       default: {
-        displayMessage("Invalid Command ! Check Docs for reference");
+        displayMessage("Invalid Command !",'ERROR');
+        displayMessage("Check Docs for reference");
         break;
       }
     }
@@ -132,7 +138,10 @@ export default function XTerminal({coinHistory}:IProps) {
       onClick={() => setTerminalFocus(true)}
       className={`bg-black rounded-2xl p-4 hover:cursor-text text-xs flex flex-col gap-1 min-h-64 my-5 text-zinc-400 font-medium`}
     >
-      <h4>ALGORITHMS DEPLOYING MACHINE V1.09.87</h4>
+      <h4>
+        <span className="text-sky-600">ALGORITHMS DEPLOYING MACHINE</span>{" "}
+        <span>V1.09.87</span>
+      </h4>
       <div ref={consoleAreaRef} className="flex flex-col gap-1"></div>
       <div className=" flex items-center gap-2">
         <p>$</p>
@@ -141,7 +150,7 @@ export default function XTerminal({coinHistory}:IProps) {
           spellCheck={false}
           type="text"
           placeholder=""
-          className="bg-transparent focus:outline-none w-full"
+          className="bg-transparent focus:outline-none w-full "
           value={terminalInput}
           onChange={(e) => setTerminalInput(e.target.value)}
           onKeyUp={(e) => {
