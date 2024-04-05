@@ -15,7 +15,7 @@ export default function NavItem(props: IProps) {
   props = { ...defaultProps, ...props };
   return (
     <div
-      className={cn("mx-auto sm:mx-0", {
+      className={cn("mx-auto sm:mx-0 min-w-[10rem]", {
         "hidden sm:block": props.hideForScren === "small",
         "hidden md:block": props.hideForScren === "medium",
         "hidden lg:block": props.hideForScren === "large",
