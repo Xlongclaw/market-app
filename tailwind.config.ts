@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/containers/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/ext_components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -19,6 +20,8 @@ const config: Config = {
         "dark-blue-I":"#000D20",
         "light-blue-I":"#7496C7",
         "gray-I":"#ABABAB"
+      },
+      dropShadow:{
       }
     },
   },

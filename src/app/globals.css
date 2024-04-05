@@ -2,14 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-
-color: #fff;
+  color: #fff;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.41);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.3px);
+  -webkit-backdrop-filter: blur(11.3px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass2 {
+  background: rgba(255, 255, 255, 0.31);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass3 {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass4{
+
+background: rgba(255, 255, 255, 0.1);
+
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(8.6px);
+-webkit-backdrop-filter: blur(8.6px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.text-stroke{
+  -webkit-text-stroke: 2px #0B131E;
+  color: rgba(0, 0, 0, 0)
 }
