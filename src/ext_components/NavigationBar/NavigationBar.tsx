@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { cn } from "../utils/cn";
 
 interface IProps {
@@ -19,7 +20,9 @@ export default function NavigationBar(props: IProps) {
   props = { ...defaultProps, ...props };
 
   return (
-    <nav
+    <motion.nav
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       className={cn(
         "flex items-center relative",
         {
@@ -44,6 +47,6 @@ export default function NavigationBar(props: IProps) {
       )}
     >
       {props.children}
-    </nav>
+    </motion.nav>
   );
 }

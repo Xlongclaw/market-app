@@ -1,5 +1,6 @@
 import { cn } from "../../utils/cn";
 import React from "react";
+import { motion } from "framer-motion";
 
 export interface INavLink {
   title: string;
@@ -49,7 +50,11 @@ export default function NavLinks(props: IProps) {
       )}
     >
       {props.links.map((link, i) => (
-        <a href={link.href} key={`${link.title}_${link.href}_${i}`}>
+        <a
+          className="hover:text-primary transition-colors duration-300"
+          href={link.href}
+          key={`${link.title}_${link.href}_${i}`}
+        >
           {link.title}
         </a>
       ))}
