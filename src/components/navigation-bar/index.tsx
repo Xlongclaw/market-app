@@ -3,7 +3,6 @@ import React from "react";
 import Logo from "../logo";
 import SearchBar from "../search-bar";
 import { useRouter } from "next/navigation";
-import Disclaimer from "./disclaimer";
 
 export default function NavigationBar() {
   const router = useRouter();
@@ -17,7 +16,6 @@ export default function NavigationBar() {
           }}
         />
       </div>
-      <Disclaimer/>
     </div>
   );
 }
