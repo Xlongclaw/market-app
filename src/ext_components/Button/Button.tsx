@@ -40,7 +40,7 @@ export default function Button(props: IProps) {
         {
           " px-6 py-2": props.size === "sm",
           " px-8 py-3": props.size === "md",
-          " px-10 py-4": props.size === "lg",
+          " px-10 py-3": props.size === "lg",
           " px-12 py-4": props.size === "xl",
         }
       )}
