@@ -16,7 +16,9 @@ const config: Config = {
       },
       colors:{
         "primary":"#0067FF",
-        "dark-blue-I":"#000D20"
+        "dark-blue-I":"#000D20",
+        "light-blue-I":"#7496C7",
+        "gray-I":"#ABABAB"
       }
     },
   },

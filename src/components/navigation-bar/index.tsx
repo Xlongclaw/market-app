@@ -11,9 +11,9 @@ import { Button } from "@/ext_components/Button";
 
 export default function NavigationBar() {
   return (
-    <NavBar size="lg" width="lg">
+    <NavBar size="xl" width="md">
       <NavItem hideForScren="large">
-        <NavLinks links={NAVLINKS} />
+        <NavLinks gap="md" links={NAVLINKS} />
       </NavItem>
       <NavItem>
         <img className="h-10 mt-6" src="logo.png" alt="Logo" />
