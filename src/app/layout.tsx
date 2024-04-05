@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavigationBarPrototype from "@/components/NavigationBar/NavigationBarPrototype";
+import NavigationBar from "@/components/navigation-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` bg-gradient-to-tr from-[#030008] to-[#000205] ${inter.className}`}>
-        <NavigationBarPrototype/>
+        <NavigationBar/>
         {children}
       </body>
     </html>

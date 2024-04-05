@@ -1,11 +1,11 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/ext_components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -14,18 +14,8 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      colors:{
-
-      }
     },
   },
-  plugins: [ plugin(function foxui({theme,matchUtilities,addUtilities}){
-    addUtilities({
-      colors:{
-       "primary-500": "#eeeeee"
-      }
-    })
-    
-  })],
+  plugins: [],
 };
 export default config;

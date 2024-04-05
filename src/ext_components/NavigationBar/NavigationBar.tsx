@@ -12,17 +12,16 @@ const defaultProps: IProps = {
   children: [<></>],
   size: "md",
   justify: "between",
-  width: "sm",
+  width: "lg",
 };
 
 export default function NavigationBar(props: IProps) {
   props = { ...defaultProps, ...props };
-  console.log(props);
 
   return (
     <nav
       className={cn(
-        "flex items-center px-16",
+        "flex items-center relative",
         {
           "h-10": props.size === "xs",
           "h-12": props.size === "sm",
@@ -32,14 +31,14 @@ export default function NavigationBar(props: IProps) {
         },
         {
           "px-0": props.width === "full",
-          "px-16": props.width === "sm",
+          "px-48": props.width === "sm",
           "px-32": props.width === "md",
-          "px-48": props.width === "lg",
+          "px-16": props.width === "lg",
         },
         {
           "justify-start": props.justify === "start" || "none",
           "justify-end": props.justify === "end",
-          "justify-center": props.justify === "center" ,
+          "justify-center": props.justify === "center",
           "justify-between": props.justify === "between",
         }
       )}
