@@ -1,0 +1,4 @@
+- TailWindCSS
+- FramerMotion
+- twMerge
+- clsx

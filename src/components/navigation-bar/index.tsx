@@ -1,3 +1,4 @@
+"use client";
 import {
   NavItem,
   NavLinks,
@@ -6,6 +7,7 @@ import {
 import React from "react";
 import NAVLINKS from "./NAVLINKS";
 import BlurBlob from "./blur-blob";
+import { Button } from "@/ext_components/Button";
 
 export default function NavigationBar() {
   return (
@@ -14,18 +16,16 @@ export default function NavigationBar() {
         <NavLinks links={NAVLINKS} />
       </NavItem>
       <NavItem>
-        <img className="h-10 mt-6" src="logo.png" alt="" />
+        <img className="h-10 mt-6" src="logo.png" alt="Logo" />
       </NavItem>
       <NavItem hideForScren="small">
-        <div className="flex gap-6 text-sm font-medium">
-          <button>Login</button>
-          <button className="border-2 px-4 py-[6px] rounded-2xl">
-            Sign Up
-          </button>
+        <div className="flex gap-2 text-sm font-medium">
+          <Button>Login</Button>
+          <Button variant="bordered">Sign Up</Button>
         </div>
       </NavItem>
       <div className="absolute left-1/2 -translate-x-1/3 z-10 ">
-        <BlurBlob/>
+        <BlurBlob />
       </div>
     </NavBar>
   );

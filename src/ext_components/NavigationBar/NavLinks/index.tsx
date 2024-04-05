@@ -1,4 +1,4 @@
-import { cn } from "../cn";
+import { cn } from "../../utils/cn";
 import React from "react";
 
 export interface INavLink {
