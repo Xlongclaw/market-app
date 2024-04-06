@@ -24,7 +24,7 @@ export default function NavigationBar(props: IProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className={cn(
-        "flex items-center relative",
+        "flex items-center relative w-full",
         {
           "h-10": props.size === "xs",
           "h-12": props.size === "sm",

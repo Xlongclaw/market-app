@@ -1,7 +1,7 @@
 const NAVLINKS = [
   {
     title: "Dashboard",
-    href: "#",
+    href: "dashboard",
   },
   {
     title: "Pricing",
