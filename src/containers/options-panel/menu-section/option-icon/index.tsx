@@ -23,7 +23,7 @@ export default function OptionIcon(props: IProps) {
   props = { ...defaultProps, ...props };
   const [hover, setHover] = React.useState(false);
   return (
-    <div
+    <button
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
       onClick={props.onClick}
@@ -31,7 +31,7 @@ export default function OptionIcon(props: IProps) {
     >
       <Image
         className={`w-10 p-2 rounded-xl transition-all duration-300 ${
-          hover === true && " bg-white/10"
+          hover === true && " bg-white/0"
         }`}
         width={100}
         height={100}
@@ -47,6 +47,6 @@ export default function OptionIcon(props: IProps) {
       {props.selected && (
         <div className="w-[2px] h-10 absolute bg-primary top-0 left-0 rounded-e-full"></div>
       )}
-    </div>
+    </button>
   );
 }

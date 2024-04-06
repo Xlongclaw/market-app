@@ -12,7 +12,7 @@ export default function OptionsPanel() {
         <MenuSection />
       </div>
       <div>
-        <OptionIcon selectedSrc={logout} src={logout} />
+        <OptionIcon selectedSrc={logout} hoverSrc={logout} src={logout} />
       </div>
     </div>
   );
