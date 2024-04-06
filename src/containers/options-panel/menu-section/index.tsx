@@ -14,7 +14,7 @@ export default function MenuSection() {
         <OptionIcon
           onClick={() => {
             setSelected(option.title);
-            router.push(`${option.title}`);
+            router.push(`/dashboard/${option.title}`);
           }}
           src={option.src}
           hoverSrc={option.hoverSrc}

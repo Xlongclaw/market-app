@@ -4,7 +4,10 @@ const nextConfig = {
     remotePatterns:[
       {
         hostname:"lcw.nyc3.cdn.digitaloceanspaces.com"
-      }
+      },
+      {
+        hostname:"res.cloudinary.com"
+      },
     ]
   }
 };
