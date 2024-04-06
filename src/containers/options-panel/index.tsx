@@ -1,7 +1,7 @@
 import React from "react";
 import HollowCircle from "./hollow-circle";
 import MenuSection from "./menu-section";
-import logout from "./menu-section/Logout.svg";
+import logout from "./menu-section/svgs/Logout.svg";
 import OptionIcon from "./menu-section/option-icon";
 
 export default function OptionsPanel() {

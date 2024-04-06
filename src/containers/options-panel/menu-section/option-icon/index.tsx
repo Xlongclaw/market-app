@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
@@ -8,6 +8,7 @@ interface IProps {
   selected?: boolean;
   selectedSrc: StaticImport | string;
   hoverSrc?: StaticImport | string;
+  onClick?: () => void;
 }
 
 const defaultProps: IProps = {
@@ -15,6 +16,7 @@ const defaultProps: IProps = {
   selected: false,
   selectedSrc: "",
   hoverSrc: "",
+  onClick: () => {},
 };
 
 export default function OptionIcon(props: IProps) {
@@ -24,10 +26,13 @@ export default function OptionIcon(props: IProps) {
     <div
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
+      onClick={props.onClick}
       className="relative w-14 flex justify-center"
     >
       <Image
-        className={`w-10 p-2 rounded-xl transition-all duration-300 ${hover === true && " bg-white/10"}`}
+        className={`w-10 p-2 rounded-xl transition-all duration-300 ${
+          hover === true && " bg-white/10"
+        }`}
         width={100}
         height={100}
         src={
