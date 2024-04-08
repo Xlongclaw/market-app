@@ -6,7 +6,7 @@ import { BiChevronDown } from 'react-icons/bi'
 
 export default function SearchBar() {
   return (
-    <div className='borde border-zinc-800 bg-zinc-900 px-4 py-3 flex gap-16 items-center rounded-xl 
+    <div className='border border-zinc-800 bg-zinc-900 px-4 py-3 flex gap-14 items-center rounded-2xl 
     hover:border-zinc-700 cursor-pointer transition-colors duration-300'>
       <div className='flex items-center gap-2'>
       <Image className='w-6' width={100} height={100} src={Bitcoin} alt=''/>

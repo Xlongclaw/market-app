@@ -8,7 +8,7 @@ export default function CalenderSVG() {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      className="w-4 h-4 hover:text-primary cursor-pointer"
+      className="w-5 h-5 hover:text-primary cursor-pointer"
     >
       <path
         stroke-linecap="round"

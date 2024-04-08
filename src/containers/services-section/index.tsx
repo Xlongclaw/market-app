@@ -7,8 +7,8 @@ export default function ServicesSection() {
     <div className="flex flex-col items-center gap-24 mb-24 relative">
       <SectionHeading textWithoutColor="Serv" textWithColor="ices" />
       <div className="grid grid-cols-4 gap-4">
-        {Array.from({ length: 8 }).map((_) => (
-          <ServiceTile />
+        {Array.from({ length: 8 }).map((_, i) => (
+          <ServiceTile key={`TILE_${i}`} />
         ))}
       </div>
       <div className="w-[80rem] h-32 bg-gradient-to-bl rotate-0 from-primary to-purple-600 blur-[200px] absolute bottom-1/3 -z-10"></div>

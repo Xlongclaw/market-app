@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Layout({ children }: { children: React.JSX.Element }) {
   return (
-    <section className="bg-[#131416] flex">
+    <section className="bg-[#131416] flex h-full">
       <OptionsPanel />
       {children}
     </section>

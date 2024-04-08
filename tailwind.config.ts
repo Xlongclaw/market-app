@@ -19,7 +19,8 @@ const config: Config = {
         "primary":"#0067FF",
         "dark-blue-I":"#000D20",
         "light-blue-I":"#7496C7",
-        "gray-I":"#ABABAB"
+        "gray-I":"#ABABAB",
+        "new-dark1":"#21222d",
       },
       dropShadow:{
       }
