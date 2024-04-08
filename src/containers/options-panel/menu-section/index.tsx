@@ -12,6 +12,7 @@ export default function MenuSection() {
     <div className="my-16 flex flex-col gap-4">
       {options.map((option) => (
         <OptionIcon
+        key={option.title}
           onClick={() => {
             setSelected(option.title);
             router.push(`/dashboard/${option.title}`);
