@@ -1,0 +1,32 @@
+name: Send Pull Request Description
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Get Pull Request Description
+      id: pr_description
+      run: |
+        pr_number=$(jq -r '.pull_request.number' $GITHUB_EVENT_PATH)
+        pr_description=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                          "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_number" | jq -r '.body')
+        echo "::set-output name=description::$pr_description"
+
+    - name: Install Mailx
+      run: sudo apt-get install -y mailutils
+
+    - name: Send Pull Request Description via Email
+      env:
+        RECIPIENT_EMAIL: "xlongclaw@gmail.com"  # Replace with actual recipient email
+        SUBJECT: "Pull Request Description"
+        BODY: ${{ steps.pr_description.outputs.description }}
+      run: |
+        echo -e "$BODY" | mailx -s "$SUBJECT" "$RECIPIENT_EMAIL"
